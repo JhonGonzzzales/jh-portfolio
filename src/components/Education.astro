@@ -1,0 +1,529 @@
+---
+interface EduItem {
+  title: string;
+  institution: string;
+  date: string;
+  desc: string;
+  image?: string; // Opcional
+}
+
+const educationData: EduItem[] = [
+  {
+    title: "Ingeniería de Sistemas",
+    institution: "Universidad Pública de El Alto",
+    date: "2021 - Actualidad",
+    desc: "Análisis, diseño, desarrollo, ejecución y mantenimiento de sistemas.",
+    image: "/education/in-progress.webp",
+  },
+  {
+    title: "Certified Full Stack Developer",
+    institution: "freeCodeCamp",
+    date: "06-2025 - Actualidad",
+    desc: "HTML5, CSS3, JavaScript, Python y bases de datos relacionales.",
+    image: "/education/in-progress.webp",
+  },
+  {
+    title: "Diseño web adaptable",
+    institution: "freeCodeCamp",
+    date: "2025 - 2026",
+    desc: "HTML5, CSS3 y conceptos de diseño, responsividad y accesibilidad.",
+    image: "/education/ResponsiveWebDesign.webp", 
+  },
+  {
+    title: "Diseño gráfico",
+    institution: "Instituto Tecnológico INFOCAL La Paz",
+    date: "2020",
+    desc: "Edición multimedia con Adobe Photoshop e Illustrator.",
+    image: "/education/infocal-diseno.webp",
+
+  },
+  {
+    title: "Operador en aplicaciones office",
+    institution: "Instituto Tecnológico INFOCAL La Paz",
+    date: "2020",
+    desc: "Elaboración de documentos con Microsoft Word, Excel, PowerPoint y Access.",
+    image: "/education/infocal-office.webp",
+  }
+];
+
+const shortCourses = [
+  { title: "Introducción a Python para desarrolladores", image: "/education/others/datacamp-intropy.webp" },
+  { title: "Redes de computadoras", image: "/education/others/upea-redes.webp" },
+  { title: "Programación web con APIs en Flutter", image: "/education/others/upea-webflutter.webp" },
+  { title: "Ataques de fuerza bruta en aplicaciones web", image: "/education/others/upea-ataques.webp" },
+  { title: "Administración de bases de datos con PostgreSQL", image: "/education/others/upea-dbapostgre.webp" },
+  { title: "Peritaje informático forense", image: "/education/others/upea-peritaje.webp" },
+  { title: "Telefonía voip con Issabel PBX", image: "/education/others/upea-telefonia.webp" },
+  { title: "Desarrollo colaborativo con Git & GitHub", image: "/education/others/upea-github.webp" },
+  { title: "Ensamblaje y mantenimiento de computadoras", image: "/education/others/upea-ensamblaje.webp" },
+  { title: "Manejo de plataformas virtuales sincrónicas y asincrónicas", image: "/education/others/upea-platf.webp" },
+  { title: "Programación competitiva", image: "/education/others/umsa-progra.webp" },
+  { title: "Como proteger tu información en internet", image: "/education/others/upea-internet.webp" },
+];
+---
+
+<section id="educacion" class="section timeline-section">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="label">Trayectoria</span>
+      <h2 class="heading-lg">
+        Educación & <span class="accent-text">Certificaciones</span>
+      </h2>
+    </div>
+
+    <!-- Contenedor con Scroll Horizontal (Snap Carousel) -->
+    <div class="timeline-carousel reveal reveal-delay-1">
+      <div class="timeline-track">
+        {
+          educationData.map((item) => (
+            <article 
+              class="timeline-item"
+              data-image={item.image || ""}
+              data-title={item.title}
+              data-alt={item.title}
+            >
+              {/* Imagen opcional (solo se dibuja si existe) */}
+              {item.image && (
+                <div class="timeline-image">
+                  <img src={item.image} alt={item.title} loading="lazy" />
+                </div>
+              )}
+
+              <div class="timeline-content">
+                <div class="timeline-pointer">
+                  <span class="dot"></span>
+                  <span class="line"></span>
+                </div>
+                <span class="timeline-date">{item.date}</span>
+                <h3 class="heading-md timeline-title">{item.title}</h3>
+                <h4 class="timeline-institution">{item.institution}</h4>
+                <p class="body-sm timeline-desc">{item.desc}</p>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+
+    <!-- Contenedor Desplegable / Acordeón -->
+  <details class="short-courses-dropdown reveal">
+    <summary class="dropdown-trigger">
+      <span>Otros cursos & talleres ({shortCourses.length})</span><i class="fas fa-chevron-down arrow-icon"></i>
+    </summary>
+
+    <div class="short-courses-grid">
+      {
+        shortCourses.map((course) => (
+          <article 
+            class="short-card" 
+            data-image={course.image} 
+            data-title={course.title}
+            data-alt={course.title}
+          >
+            <div class="short-card-image">
+              <img src={course.image} alt={course.title} loading="lazy" />
+            </div>
+            <h4 class="short-card-title">{course.title}</h4>
+          </article>
+        ))
+      }
+    </div>
+  </details>
+  </div>
+
+  <!-- Modal / Lightbox -->
+  <div id="education-modal" class="modal" aria-hidden="true">
+    <div class="modal-backdrop"></div>
+    <div class="modal-container">
+      <button id="edu-modal-close" class="modal-close" aria-label="Cerrar modal">
+        <i class="fas fa-times"></i>
+      </button>
+      <img id="edu-modal-img" src="" alt="" />
+      <div class="modal-caption">
+        <h4 id="edu-modal-title"></h4>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .timeline-section {
+    background: var(--bg);
+    overflow: hidden;
+  }
+
+  .accent-text {
+    color: var(--accent);
+  }
+
+  /* --- Contenedor del Carrusel --- */
+  .timeline-carousel {
+    width: 100%;
+    margin-top: var(--space-md);
+  }
+
+  .timeline-track {
+    display: flex;
+    gap: var(--space-md);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    padding-top: var(--space-sm);
+    padding-bottom: var(--space-md);
+    -webkit-overflow-scrolling: touch;
+    align-items: stretch;
+  }
+
+  /* Barra de scroll limpia */
+  .timeline-track::-webkit-scrollbar {
+    height: 6px;
+  }
+  .timeline-track::-webkit-scrollbar-track {
+    background: var(--surface);
+    border-radius: var(--radius-sm);
+  }
+  .timeline-track::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: var(--radius-sm);
+  }
+  .timeline-track::-webkit-scrollbar-thumb:hover {
+    background: var(--accent);
+  }
+
+  /* --- Tarjeta del Item --- */
+  .timeline-item {
+    flex: 0 0 calc(33.33% - (var(--space-md) * 2 / 3));
+    min-width: 320px;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; 
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: var(--space-md);
+    transition: transform var(--transition-base), border-color var(--transition-base);
+  }
+
+  .timeline-item:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent);
+  }
+
+  /* Cursor pointer solo si la tarjeta tiene imagen para modal */
+  .timeline-item[data-image]:not([data-image=""]) {
+    cursor: pointer;
+  }
+
+  /* --- Ajuste de Imagen / Certificado --- */
+  .timeline-image {
+    width: 100%;
+    height: 180px;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    margin-bottom: var(--space-md);
+    background-color: rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .timeline-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; 
+    border-radius: var(--radius-sm);
+  }
+
+  /* --- Contenido Interno y Línea del Timeline --- */
+  .timeline-content {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  .timeline-pointer {
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-bottom: var(--space-xs);
+  }
+
+  .timeline-pointer .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 4px rgba(202, 221, 87, 0.2);
+    z-index: 2;
+  }
+
+  .timeline-pointer .line {
+    position: absolute;
+    left: 12px;
+    right: 0;
+    height: 2px;
+    background: var(--border);
+    z-index: 1;
+  }
+
+  .timeline-date {
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--accent-secondary);
+    margin-top: var(--space-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .timeline-title {
+    font-size: 1.25rem;
+    margin-top: 0.25rem;
+  }
+
+  .timeline-institution {
+    font-size: 0.95rem;
+    color: var(--text);
+    font-weight: 500;
+    margin-bottom: var(--space-xs);
+  }
+
+  .timeline-desc {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  /* —— Lightbox Modal Estilos (Mismos de Portafolio) —— */
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity var(--transition-base),
+      visibility var(--transition-base);
+  }
+
+  .modal.open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+  }
+
+  .modal-container {
+    position: relative;
+    z-index: 2;
+    max-width: 90vw;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .modal-container img {
+    max-width: 100%;
+    max-height: 80vh;
+    border-radius: var(--radius-sm);
+    object-fit: contain;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  }
+
+  .modal-close {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: color var(--transition-fast);
+  }
+
+  .modal-close:hover {
+    color: var(--accent);
+  }
+
+  .modal-caption {
+    margin-top: var(--space-sm);
+    color: #fff;
+    text-align: center;
+  }
+
+  .modal-caption h4 {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+  }
+
+  /* —— Estilos del Acordeón —— */
+  .short-courses-dropdown {
+    margin-top: var(--space-xl);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface);
+    overflow: hidden;
+    transition: border-color var(--transition-fast);
+  }
+
+  .short-courses-dropdown[open] {
+    border-color: var(--accent);
+  }
+
+  .dropdown-trigger {
+    padding: var(--space-sm);
+    font-family: var(--font-body);
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text);
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    list-style: none; /* Elimina la flecha nativa del navegador */
+    user-select: none;
+    gap: 10px;
+  }
+
+  .dropdown-trigger::-webkit-details-marker {
+    display: none; /* Oculta la flecha nativa en Safari/Chrome */
+  }
+
+  .dropdown-trigger:hover {
+    color: var(--accent);
+  }
+
+  /* Rotación de la flecha cuando el desplegable está abierto */
+  .arrow-icon {
+    font-size: 0.9rem;
+    transition: transform var(--transition-fast);
+  }
+
+  .short-courses-dropdown[open] .arrow-icon {
+    transform: rotate(180deg);
+  }
+
+  /* —— Grilla compacta dentro del desplegable —— */
+  .short-courses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: var(--space-sm);
+    padding: 0 var(--space-md) var(--space-md) var(--space-md);
+    border-top: 1px solid var(--border);
+    margin-top: var(--space-xs);
+    padding-top: var(--space-md);
+  }
+
+  .short-card {
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: var(--space-xs);
+    cursor: pointer;
+    transition: transform var(--transition-fast), border-color var(--transition-fast);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .short-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent);
+  }
+
+  .short-card-image {
+    width: 100%;
+    height: 100px;
+    border-radius: calc(var(--radius-sm) - 2px);
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .short-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .short-card-title {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-top: var(--space-xs);
+    text-align: center;
+    line-height: 1.2;
+  }
+
+  /* --- Responsive --- */
+  @media (max-width: 768px) {
+    .timeline-item {
+      flex: 0 0 85%;
+      min-width: 260px;
+    }
+  }
+</style>
+
+<script>
+  // —— Modal Lightbox (Lógica Idéntica a Portafolio) ——
+  const eduCards = document.querySelectorAll<HTMLElement>(".timeline-item, .short-card");
+  const eduModal = document.getElementById("education-modal");
+  const eduModalImg = document.getElementById("edu-modal-img") as HTMLImageElement;
+  const eduModalTitle = document.getElementById("edu-modal-title");
+  const eduModalClose = document.getElementById("edu-modal-close");
+  const eduModalBackdrop = document.querySelector("#education-modal .modal-backdrop");
+
+  function openModal(imageSrc: string, title: string, alt: string) {
+    if (eduModal && eduModalImg && eduModalTitle) {
+      eduModalImg.src = imageSrc;
+      eduModalImg.alt = alt;
+      eduModalTitle.textContent = title;
+      eduModal.classList.add("open");
+      eduModal.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    }
+  }
+
+  function closeModal() {
+    if (eduModal) {
+      eduModal.classList.remove("open");
+      eduModal.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+    }
+  }
+
+  eduCards.forEach((card) => {
+    card.addEventListener("click", () => {
+      const img = card.getAttribute("data-image");
+      // Solo abre el modal si este item en particular tiene imagen declarada
+      if (img) {
+        const title = card.getAttribute("data-title") || "";
+        const alt = card.getAttribute("data-alt") || "";
+        openModal(img, title, alt);
+      }
+    });
+  });
+
+  eduModalClose?.addEventListener("click", closeModal);
+  eduModalBackdrop?.addEventListener("click", closeModal);
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && eduModal?.classList.contains("open")) {
+      closeModal();
+    }
+  });
+</script>

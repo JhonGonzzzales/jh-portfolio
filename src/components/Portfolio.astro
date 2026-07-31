@@ -1,0 +1,483 @@
+---
+const categories = ["Todos", "Websites", "Web Apps", "Mobile Apps"];
+
+const projects = [
+  {
+    image: "/portfolio/inventariomvc.webp",
+    alt: "Aplicación web para manejo básico de inventario.",
+    category: "Web Apps",
+    title: "Inventario MVC",
+    githubUrl: "https://github.com/JhonGonzzzales/INVENTARIOMVC",
+  },
+  {
+    image: "/portfolio/web-estudio-brutal.webp",
+    alt: "Diseño Web Anti-Estético & Anti-UX",
+    category: "Websites",
+    title: "Estudio Brutal",
+    demoUrl: "https://estudio-brutal.netlify.app/",
+    githubUrl: "https://github.com/JhonGonzzzales/web-estudio-brutal",
+  },
+  {
+    image: "/portfolio/michuspa.webp",
+    alt: "Aplicación móvil para registro de gastos e ingresos personales.",
+    category: "Mobile Apps",
+    title: "Michuspa",
+    demoUrl: "https://mi-chuspa.vercel.app/",
+  },
+  {
+    image: "/portfolio/appsig.webp",
+    alt: "Aplicación móvil para recolección de información geográfica.",
+    category: "Mobile Apps",
+    title: "App SIG",
+    demoUrl: "https://app-sig-alpha.vercel.app/",
+  },
+  {
+    image: "/portfolio/gesemp.webp",
+    alt: "Sistema de gestión empresarial (Frontend)",
+    category: "Web Apps",
+    title: "GesEmp",
+    demoUrl: "https://ges-emp.vercel.app/",
+  },
+];
+---
+
+<section id="portafolio" class="section portfolio">
+  <div class="container">
+    <div class="section-header reveal">
+      <span class="label">Portafolio</span>
+      <h2 class="heading-lg">
+        Trabajos <span style="color: var(--accent-secondary);">recientes</span>
+      </h2>
+
+      <!-- Filtros por categoría -->
+      <div class="portfolio-filters" role="tablist" aria-label="Filtros de portafolio">
+        {
+          categories.map((cat, i) => (
+            <button
+              type="button"
+              class={`filter-btn ${i === 0 ? "active" : ""}`}
+              data-filter={cat === "Todos" ? "all" : cat}
+              role="tab"
+              aria-selected={i === 0 ? "true" : "false"}
+            >
+              {cat}
+            </button>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="portfolio-grid">
+      {
+        projects.map((project, i) => (
+          <article
+            class={`project-card reveal reveal-delay-${(i % 3) + 1}`}
+            data-category={project.category}
+            data-image={project.image}
+            data-title={project.title}
+            data-alt={project.alt}
+            tabindex="0"
+            role="button"
+            aria-label={`Ver vista previa de ${project.title}`}
+          >
+            <img src={project.image} alt={project.alt} loading="lazy" />
+            <div class="project-overlay">
+              <span class="project-category">{project.category}</span>
+              <h3 class="project-title">{project.title}</h3>
+
+              {/* Botones de acción opcionales */}
+              {(project.demoUrl || project.githubUrl) && (
+                <div class="project-actions">
+                  {project.demoUrl && (
+                    <a
+                      href={project.demoUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="action-btn"
+                      title="Ver demo en vivo"
+                      onclick="event.stopPropagation()"
+                    >
+                      <i class="fas fa-external-link-alt" aria-hidden="true" /> Demo
+                    </a>
+                  )}
+                  {project.githubUrl && (
+                    <a
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="action-btn"
+                      title="Ver código fuente"
+                      onclick="event.stopPropagation()"
+                    >
+                      <i class="fab fa-github" aria-hidden="true" /> GitHub
+                    </a>
+                  )}
+                </div>
+              )}
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+
+  <!-- Modal / Lightbox -->
+  <div id="portfolio-modal" class="modal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal-backdrop"></div>
+    <div class="modal-container">
+      <button type="button" id="modal-close" class="modal-close" aria-label="Cerrar modal">
+        <i class="fas fa-times" aria-hidden="true"></i>
+      </button>
+      <img id="modal-img" src="" alt="" />
+      <div class="modal-caption">
+        <h4 id="modal-title"></h4>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* —— Filtros —— */
+  .portfolio-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    margin-top: var(--space-sm);
+  }
+
+  .filter-btn {
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    color: var(--text-muted);
+    padding: 0.6rem 1.25rem;
+    border-radius: var(--radius-sm);
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+  }
+
+  .filter-btn:hover {
+    border-color: var(--accent);
+    color: var(--text);
+  }
+
+  .filter-btn.active {
+    background: var(--accent);
+    color: var(--charcoal);
+    border-color: var(--accent);
+  }
+
+  /* —— Grid de tarjetas —— */
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-md);
+  }
+
+  .project-card {
+    position: relative;
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1.5px solid var(--border);
+    cursor: pointer;
+    background: var(--surface);
+    aspect-ratio: 4 / 3;
+    transition:
+      opacity var(--transition-base),
+      transform var(--transition-base),
+      border-color var(--transition-fast),
+      background-color var(--transition-base);
+  }
+
+  .project-card:hover {
+    border-color: var(--accent);
+  }
+
+  .project-card:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .project-card.hidden {
+    display: none;
+  }
+
+  .project-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background-color: var(--surface); 
+    padding: 0.5rem;
+    transition: transform var(--transition-base);
+  }
+
+  .project-card:hover img,
+  .project-card:focus-visible img {
+    transform: scale(1.05);
+  }
+
+  /* Contenedor de botones */
+  .project-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: var(--space-xs);
+    z-index: 5;
+  }
+
+  /* Estilo individual de cada botón */
+  .action-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.8rem;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+    border: 1px solid var(--border);
+    color: #fff;
+    border-radius: var(--radius-sm);
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all var(--transition-fast);
+  }
+
+  .action-btn:hover,
+  .action-btn:focus-visible {
+    background: var(--accent);
+    color: var(--charcoal);
+    border-color: var(--accent);
+  }
+
+  .project-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: var(--space-md);
+    background: linear-gradient(
+      to top,
+      rgba(0, 0, 0, 0.85) 0%,
+      transparent 60%
+    );
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all var(--transition-base);
+  }
+
+  .project-card:hover .project-overlay,
+  .project-card:focus-within .project-overlay {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .project-category {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--charcoal);
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 4px 10px;
+    border-radius: var(--radius-sm);
+    width: fit-content;
+    margin-bottom: var(--space-xs);
+  }
+
+  .project-title {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff;
+    text-shadow: 
+      -1px -1px 0 #000,  
+       1px -1px 0 #000,
+      -1px  1px 0 #000,
+       1px  1px 0 #000;
+  }
+
+  /* —— Lightbox Modal Estilos —— */
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity var(--transition-base),
+      visibility var(--transition-base);
+  }
+
+  .modal.open {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(8px);
+  }
+
+  .modal-container {
+    position: relative;
+    z-index: 2;
+    max-width: 90vw;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .modal-container img {
+    max-width: 100%;
+    max-height: 80vh;
+    border-radius: var(--radius-sm);
+    object-fit: contain;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+  }
+
+  .modal-close {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: color var(--transition-fast);
+  }
+
+  .modal-close:hover {
+    color: var(--accent);
+  }
+
+  .modal-caption {
+    margin-top: var(--space-sm);
+    color: #fff;
+    text-align: center;
+  }
+
+  .modal-caption h4 {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+  }
+
+  /* Responsive */
+  @media (max-width: 1024px) {
+    .portfolio-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .portfolio-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .project-overlay {
+      opacity: 1;
+      transform: translateY(0);
+      background: linear-gradient(
+        to top,
+        rgba(0, 0, 0, 0.9) 0%,
+        rgba(0, 0, 0, 0.2) 60%
+      );
+    }
+  }
+</style>
+
+<script>
+  // —— Filtrado por categorías ——
+  const filterBtns = document.querySelectorAll<HTMLButtonElement>(".filter-btn");
+  const projectCards = document.querySelectorAll<HTMLElement>(".project-card");
+
+  filterBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      filterBtns.forEach((b) => {
+        b.classList.remove("active");
+        b.setAttribute("aria-selected", "false");
+      });
+      btn.classList.add("active");
+      btn.setAttribute("aria-selected", "true");
+
+      const filter = btn.getAttribute("data-filter");
+
+      projectCards.forEach((card) => {
+        const category = card.getAttribute("data-category");
+        if (filter === "all" || category === filter) {
+          card.classList.remove("hidden");
+        } else {
+          card.classList.add("hidden");
+        }
+      });
+    });
+  });
+
+  // —— Modal Lightbox ——
+  const modal = document.getElementById("portfolio-modal");
+  const modalImg = document.getElementById("modal-img") as HTMLImageElement;
+  const modalTitle = document.getElementById("modal-title");
+  const modalClose = document.getElementById("modal-close");
+  const modalBackdrop = document.querySelector("#portfolio-modal .modal-backdrop");
+
+  function openModal(imageSrc: string, title: string, alt: string) {
+    if (modal && modalImg && modalTitle) {
+      modalImg.src = imageSrc;
+      modalImg.alt = alt;
+      modalTitle.textContent = title;
+      modal.classList.add("open");
+      modal.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    }
+  }
+
+  function closeModal() {
+    if (modal) {
+      modal.classList.remove("open");
+      modal.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+    }
+  }
+
+  projectCards.forEach((card) => {
+    card.addEventListener("click", () => {
+      const img = card.getAttribute("data-image") || "";
+      const title = card.getAttribute("data-title") || "";
+      const alt = card.getAttribute("data-alt") || "";
+      openModal(img, title, alt);
+    });
+
+    card.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        if ((e.target as HTMLElement).tagName !== "A") {
+          e.preventDefault();
+          const img = card.getAttribute("data-image") || "";
+          const title = card.getAttribute("data-title") || "";
+          const alt = card.getAttribute("data-alt") || "";
+          openModal(img, title, alt);
+        }
+      }
+    });
+  });
+
+  modalClose?.addEventListener("click", closeModal);
+  modalBackdrop?.addEventListener("click", closeModal);
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && modal?.classList.contains("open")) {
+      closeModal();
+    }
+  });
+</script>

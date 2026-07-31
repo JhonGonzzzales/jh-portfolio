@@ -1,0 +1,253 @@
+---
+---
+
+<header class="header">
+  <div class="container header-inner">
+    <a href="/" class="logo">
+      <span class="logo-name">Jh</span>
+      <span class="logo-tag">Dev</span>
+    </a>
+
+    <nav class="nav" id="main-nav">
+      <ul class="nav-list">
+        <li><a href="#sobre-mi" class="nav-link">Sobre mi</a></li>
+        <li><a href="#portafolio" class="nav-link">Portafolio</a></li>
+        <li><a href="#educacion" class="nav-link">Educacion</a></li>
+        <li><a href="#contacto" class="nav-link">Contacto</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+      <button class="theme-toggle" id="theme-toggle" aria-label="Cambiar tema">
+        <i class="fas fa-moon" id="theme-icon"></i>
+      </button>
+      <button class="menu-toggle" id="menu-toggle" aria-label="Menú" aria-expanded="false">
+        <i class="fas fa-bars" id="menu-icon"></i>
+      </button>
+    </div>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--bg);
+    border-bottom: 1.5px solid var(--border);
+    backdrop-filter: blur(12px);
+    background-color: color-mix(in srgb, var(--bg) 90%, transparent);
+    transition: background-color var(--transition-base), border-color var(--transition-base);
+  }
+
+  .header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: var(--header-height);
+  }
+
+  .logo {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+  }
+
+  .logo-name {
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text);
+  }
+
+  .logo-tag {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--accent-secondary);
+    margin-top: 2px;
+  }
+
+  .nav-list {
+    display: flex;
+    list-style: none;
+    gap: var(--space-lg);
+  }
+
+  .nav-link {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    position: relative;
+    padding: 0.25rem 0;
+    transition: color var(--transition-fast);
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2.5px;
+    background: var(--accent);
+    border-radius: 2px;
+    transition: width var(--transition-fast);
+  }
+
+  /* Reemplaza esta regla en tu <style> de Header.astro */
+.nav-link:hover,
+.nav-link.active {
+  color: var(--text);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 100%;
+}
+
+  .header-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+
+  .theme-toggle,
+  .menu-toggle {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    color: var(--text);
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+  }
+
+  .theme-toggle:hover,
+  .menu-toggle:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .menu-toggle {
+    display: none;
+  }
+
+  /* Mobile nav */
+  @media (max-width: 768px) {
+    .menu-toggle {
+      display: flex;
+    }
+
+    .nav {
+      position: absolute;
+      top: var(--header-height);
+      left: 0;
+      right: 0;
+      background: var(--bg);
+      border-bottom: 1.5px solid var(--border);
+      padding: var(--space-md);
+      transform: translateY(-100%);
+      opacity: 0;
+      pointer-events: none;
+      transition: all var(--transition-base);
+    }
+
+    .nav.open {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .nav-list {
+      flex-direction: column;
+      gap: var(--space-sm);
+    }
+
+    .nav-link {
+      font-size: 1.25rem;
+      padding: 0.5rem 0;
+    }
+  }
+</style>
+
+<script>
+  // —— Modo Claro / Oscuro ——
+  const themeToggle = document.getElementById('theme-toggle');
+  const themeIcon = document.getElementById('theme-icon');
+  const html = document.documentElement;
+
+  function updateThemeIcon(theme: string) {
+    if (themeIcon) {
+      themeIcon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+    }
+  }
+
+  themeToggle?.addEventListener('click', () => {
+    const current = html.getAttribute('data-theme') || 'light';
+    const next = current === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+    updateThemeIcon(next);
+  });
+
+  updateThemeIcon(html.getAttribute('data-theme') || 'light');
+
+  // —— Menú Hamburguesa en Móvil ——
+  const menuToggle = document.getElementById('menu-toggle');
+  const nav = document.getElementById('main-nav');
+  const menuIcon = document.getElementById('menu-icon');
+
+  menuToggle?.addEventListener('click', () => {
+    if (nav && menuToggle && menuIcon) {
+      const isOpen = nav.classList.toggle('open');
+      menuToggle.setAttribute('aria-expanded', String(isOpen));
+      menuIcon.className = isOpen ? 'fas fa-times' : 'fas fa-bars';
+    }
+  });
+
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      if (nav && menuToggle && menuIcon) {
+        nav.classList.remove('open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+        menuIcon.className = 'fas fa-bars';
+      }
+    });
+  });
+
+  // —— Indicador de Sección Activa (.active) ——
+  const sections = document.querySelectorAll<HTMLElement>('section[id]');
+  const navLinks = document.querySelectorAll<HTMLAnchorElement>('.nav-link');
+
+  const observerOptions = {
+    root: null,
+    rootMargin: '-20% 0px -60% 0px', // Detecta la sección cuando está en la parte superior/media del viewport
+    threshold: 0
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.getAttribute('id');
+        navLinks.forEach(link => {
+          if (link.getAttribute('href') === `#${id}`) {
+            link.classList.add('active');
+          } else {
+            link.classList.remove('active');
+          }
+        });
+      }
+    });
+  }, observerOptions);
+
+  sections.forEach(section => observer.observe(section));
+</script>

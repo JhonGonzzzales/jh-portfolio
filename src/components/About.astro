@@ -1,0 +1,120 @@
+---
+const about = [
+  {
+    desc: "Estudiante de Ingeniería de Sistemas y autodidacta, enfocado en tecnologías Mobile y Web. Cuento con experiencia práctica en el despliegue de aplicaciones, integración de servicios y trabajo bajo metodologías ágiles y/o tradicionales. Interesado en colaborar con equipos multidisciplinarios para crear soluciones digitales.",
+    highlight: false,
+  },
+];
+---
+
+<section id="sobre-mi" class="section about">
+  <div class="container">
+    <div class="section-header reveal">
+      <h2 class="heading-lg">
+        Sobre <span class="accent-text">mí</span>
+      </h2>
+    </div>
+
+    <div class="about-grid">
+      {
+        about.map((item, i) => (
+          <article
+            class={`about-card reveal reveal-delay-${i + 1} ${item.highlight ? "highlight" : ""}`}
+          >
+            <p class="about-desc">{item.desc}</p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .about {
+    background: var(--surface);
+    border-top: 1.5px solid var(--border);
+    border-bottom: 1.5px solid var(--border);
+  }
+
+  .accent-text {
+    color: var(--accent);
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .about-card {
+    background: var(--bg);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+    text-align: justify;
+    gap: var(--space-sm);
+    transition: all var(--transition-base);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .about-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--transition-base);
+  }
+
+  .about-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--accent);
+    box-shadow: 0 16px 48px rgba(51, 51, 51, 0.1);
+  }
+
+  .about-card:hover::before {
+    transform: scaleX(1);
+  }
+
+  .about-card.highlight {
+    border-color: var(--accent-secondary);
+    background: linear-gradient(
+      135deg,
+      var(--bg) 0%,
+      rgba(101, 98, 245, 0.04) 100%
+    );
+  }
+
+  .about-card.highlight::before {
+    background: var(--accent-secondary);
+    transform: scaleX(1);
+  }
+
+  .about-title {
+    font-size: 1.5rem;
+    color: var(--text);
+  }
+
+  .about-desc {
+    flex: 1;
+    font-size: 1.125rem;
+    color: var(--text);
+    line-height: 1.7;
+  }
+
+  @media (max-width: 640px) {
+    .about-card {
+      padding: var(--space-md);
+      text-align: left;
+    }
+  }
+</style>
