@@ -1,5 +1,5 @@
 ---
-
+import LinkedInCard from "./LinkedInCard.astro";
 ---
 
 <section class="hero">
@@ -9,7 +9,7 @@
         >Ánalisis | Diseño | Desarrollo | Ejecución | Mantenimiento</span
       >
       <h1 class="heading-xl reveal reveal-delay-1">
-        Hola! mi nombre es <span class="accent-word">Jhon Herbert</span>
+        Hola, te doy la <span class="accent-word">bienvenida!</span>
       </h1>
       <div class="hero-actions reveal reveal-delay-3">
         <a
@@ -37,11 +37,7 @@
     </div>
 
     <div class="hero-visual reveal reveal-delay-2">
-      <div class="shape-lima"></div>
-      <div class="shape-violeta"></div>
-      <div class="hero-logo">
-        <img src="/h_logo.svg" alt="Herbert Diseño Gráfico" loading="eager" />
-      </div>
+      <LinkedInCard />
     </div>
   </div>
 </section>
@@ -87,54 +83,36 @@
 
   .hero-actions {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     gap: var(--space-sm);
     margin-top: var(--space-sm);
+  }
+
+  .hero-actions .btn {
+    flex: 1;
+    justify-content: center;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    white-space: nowrap;
   }
 
   .hero-visual {
     position: relative;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    min-height: 400px;
-  }
-
-  .hero-logo {
-    position: relative;
-    z-index: 2;
-    max-width: 380px;
+    gap: 1rem;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    box-sizing: border-box;
+    overflow: hidden;
   }
 
   .hero-logo img {
     width: 100%;
     filter: drop-shadow(0 20px 40px rgba(51, 51, 51, 0.15));
-  }
-
-  .shape-lima {
-    position: absolute;
-    width: 280px;
-    height: 280px;
-    background: var(--accent);
-    border-radius: 40% 60% 60% 40% / 60% 40% 60% 40%;
-    opacity: 0.25;
-    top: 10%;
-    right: 10%;
-    z-index: 0;
-    animation: float 6s ease-in-out infinite;
-  }
-
-  .shape-violeta {
-    position: absolute;
-    width: 180px;
-    height: 180px;
-    background: var(--accent-secondary);
-    border-radius: 50%;
-    opacity: 0.15;
-    bottom: 15%;
-    left: 5%;
-    z-index: 0;
-    animation: float 8s ease-in-out infinite reverse;
   }
 
   /* —— Estilos de marca al hacer Hover —— */
@@ -216,6 +194,7 @@
     .hero-actions .btn {
       width: 100%;
       max-width: 100%;
+      box-sizing: border-box;
     }
   }
 </style>

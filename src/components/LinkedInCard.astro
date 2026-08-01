@@ -1,0 +1,200 @@
+---
+import TechCarousel from "./TechCarousel.astro";
+---
+
+<!-- ENVOLVEDOR PRINCIPAL (Envuelve a ambos) -->
+<div class="hero-profile-container">
+  <div class="linkedin-card">
+    <div class="linkedin-banner"></div>
+
+    <div class="linkedin-body">
+      <div class="linkedin-avatar-wrapper">
+        <img
+          src="/profile/jh-photo.webp"
+          alt="Jhon Herbert Gonzales Hurtado"
+          class="linkedin-avatar"
+        />
+      </div>
+
+      <div class="linkedin-main-info">
+        <div class="linkedin-user">
+          <h2 class="linkedin-name">Jhon Herbert Gonzales Hurtado</h2>
+          <p class="linkedin-headline">
+            Estudiante de Ingeniería de Sistemas | Analista de Sistemas | Web &
+            Mobile dev
+          </p>
+          <p class="linkedin-location">El Alto, La Paz, Bolivia</p>
+        </div>
+
+        <div class="linkedin-logos">
+          <div class="linkedin-logo-item" title="Lab Tecno Social">
+            <img
+              src="/profile/lab-tecno-social-logo.webp"
+              alt="Lab Tecno Social"
+            />
+          </div>
+          <div class="linkedin-logo-item" title="freeCodeCamp.org">
+            <img src="/profile/free-code-camp-logo.webp" alt="freeCodeCamp.org" />
+          </div>
+          <div class="linkedin-logo-item" title="UPEA">
+            <img
+              src="/profile/upea-logo.webp"
+              alt="Universidad Pública de El Alto"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Carrusel alineado con la tarjeta -->
+  <TechCarousel />
+</div>
+
+<style>
+  /* —— Contenedor Envolvente Principal —— */
+  .hero-profile-container {
+    width: 100%;
+    max-width: 480px; /* Asegura el mismo ancho que la card */
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px; /* Espacio entre la card y el carrusel */
+    overflow: hidden; /* 👈 Bloquea el desborde horizontal por completo */
+  }
+
+  .linkedin-card {
+    width: 100%;
+    max-width: 480px;
+    box-sizing: border-box;
+    background-color: var(--bg-card, #ffffff);
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    font-family:
+      system-ui,
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      Roboto,
+      sans-serif;
+    transition:
+      transform 0.3s ease,
+      box-shadow 0.3s ease;
+  }
+
+  .linkedin-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+  }
+
+  .linkedin-banner {
+    height: 110px;
+    background: linear-gradient(135deg, #e8ddd4 0%, #a48e9e 50%, #766375 100%);
+    width: 100%;
+  }
+
+  .linkedin-body {
+    padding: 0 16px 20px 16px;
+    position: relative;
+  }
+
+  .linkedin-avatar-wrapper {
+    margin-top: -55px;
+    margin-bottom: 12px;
+  }
+
+  .linkedin-avatar {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    border: 4px solid var(--bg-card, #ffffff);
+    object-fit: cover;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  .linkedin-main-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .linkedin-user {
+    flex: 1;
+  }
+
+  .linkedin-name {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-color, #191919);
+    margin: 0 0 4px 0;
+    line-height: 1.2;
+  }
+
+  .linkedin-headline {
+    font-size: 0.82rem;
+    color: var(--text-muted, #404040);
+    margin: 0 0 6px 0;
+    line-height: 1.35;
+  }
+
+  .linkedin-location {
+    font-size: 0.78rem;
+    color: #666666;
+    margin: 0;
+  }
+
+  .linkedin-logos {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex-shrink: 0;
+    margin-top: -14px;
+  }
+
+  .linkedin-logo-item img {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+    border-radius: 4px;
+  }
+
+  :global([data-theme="dark"]) .linkedin-card {
+    background-color: #1d2226;
+    border-color: #38434f;
+  }
+
+  :global([data-theme="dark"]) .linkedin-avatar {
+    border-color: #1d2226;
+  }
+
+  :global([data-theme="dark"]) .linkedin-name {
+    color: #ffffff;
+  }
+
+  :global([data-theme="dark"]) .linkedin-headline {
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  :global([data-theme="dark"]) .linkedin-location {
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  @media (max-width: 480px) {
+    .linkedin-main-info {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .linkedin-logos {
+      flex-direction: row;
+      justify-content: center;
+      width: 100%;
+      margin-top: 12px;
+      gap: 12px;
+    }
+  }
+</style>

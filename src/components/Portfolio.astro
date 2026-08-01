@@ -7,6 +7,8 @@ const projects = [
     alt: "Aplicación web para manejo básico de inventario.",
     category: "Web Apps",
     title: "Inventario MVC",
+    description:
+      "Sistema web desarrollado para la gestión de inventarios, control de stock, reportes y autenticación.",
     githubUrl: "https://github.com/JhonGonzzzales/INVENTARIOMVC",
   },
   {
@@ -14,6 +16,8 @@ const projects = [
     alt: "Diseño Web Anti-Estético & Anti-UX",
     category: "Websites",
     title: "Estudio Brutal",
+    description:
+      "Web con diseño anti-estético, tipografías grandes y colores contrastados.",
     demoUrl: "https://estudio-brutal.netlify.app/",
     githubUrl: "https://github.com/JhonGonzzzales/web-estudio-brutal",
   },
@@ -22,6 +26,8 @@ const projects = [
     alt: "Aplicación móvil para registro de gastos e ingresos personales.",
     category: "Mobile Apps",
     title: "Michuspa",
+    description:
+      "Aplicación móvil para registro de gastos e ingresos personales.",
     demoUrl: "https://mi-chuspa.vercel.app/",
   },
   {
@@ -29,6 +35,8 @@ const projects = [
     alt: "Aplicación móvil para recolección de información geográfica.",
     category: "Mobile Apps",
     title: "App SIG",
+    description:
+      "Aplicación móvil experimental para recolección de información geográfica.",
     demoUrl: "https://app-sig-alpha.vercel.app/",
   },
   {
@@ -36,6 +44,8 @@ const projects = [
     alt: "Sistema de gestión empresarial (Frontend)",
     category: "Web Apps",
     title: "GesEmp",
+    description:
+      "Vista de un sistema de gestión empresarial, roles, inventario y analíticas.",
     demoUrl: "https://ges-emp.vercel.app/",
   },
 ];
@@ -50,7 +60,11 @@ const projects = [
       </h2>
 
       <!-- Filtros por categoría -->
-      <div class="portfolio-filters" role="tablist" aria-label="Filtros de portafolio">
+      <div
+        class="portfolio-filters"
+        role="tablist"
+        aria-label="Filtros de portafolio"
+      >
         {
           categories.map((cat, i) => (
             <button
@@ -76,6 +90,7 @@ const projects = [
             data-image={project.image}
             data-title={project.title}
             data-alt={project.alt}
+            data-description={project.description}
             tabindex="0"
             role="button"
             aria-label={`Ver vista previa de ${project.title}`}
@@ -97,7 +112,8 @@ const projects = [
                       title="Ver demo en vivo"
                       onclick="event.stopPropagation()"
                     >
-                      <i class="fas fa-external-link-alt" aria-hidden="true" /> Demo
+                      <i class="fas fa-external-link-alt" aria-hidden="true" />{" "}
+                      Demo
                     </a>
                   )}
                   {project.githubUrl && (
@@ -122,15 +138,27 @@ const projects = [
   </div>
 
   <!-- Modal / Lightbox -->
-  <div id="portfolio-modal" class="modal" aria-hidden="true" role="dialog" aria-modal="true">
+  <div
+    id="portfolio-modal"
+    class="modal"
+    aria-hidden="true"
+    role="dialog"
+    aria-modal="true"
+  >
     <div class="modal-backdrop"></div>
     <div class="modal-container">
-      <button type="button" id="modal-close" class="modal-close" aria-label="Cerrar modal">
+      <button
+        type="button"
+        id="modal-close"
+        class="modal-close"
+        aria-label="Cerrar modal"
+      >
         <i class="fas fa-times" aria-hidden="true"></i>
       </button>
       <img id="modal-img" src="" alt="" />
       <div class="modal-caption">
         <h4 id="modal-title"></h4>
+        <p id="modal-description" class="modal-text"></p>
       </div>
     </div>
   </div>
@@ -208,7 +236,7 @@ const projects = [
     width: 100%;
     height: 100%;
     object-fit: contain;
-    background-color: var(--surface); 
+    background-color: var(--surface);
     padding: 0.5rem;
     transition: transform var(--transition-base);
   }
@@ -292,11 +320,11 @@ const projects = [
     font-size: 1.5rem;
     font-weight: 700;
     color: #fff;
-    text-shadow: 
-      -1px -1px 0 #000,  
-       1px -1px 0 #000,
-      -1px  1px 0 #000,
-       1px  1px 0 #000;
+    text-shadow:
+      -1px -1px 0 #000,
+      1px -1px 0 #000,
+      -1px 1px 0 #000,
+      1px 1px 0 #000;
   }
 
   /* —— Lightbox Modal Estilos —— */
@@ -374,6 +402,14 @@ const projects = [
     font-size: 1.5rem;
   }
 
+  .modal-caption .modal-text {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin-top: 0.5rem;
+    max-width: 600px;
+    line-height: 1.5;
+  }
+
   /* Responsive */
   @media (max-width: 1024px) {
     .portfolio-grid {
@@ -400,7 +436,8 @@ const projects = [
 
 <script>
   // —— Filtrado por categorías ——
-  const filterBtns = document.querySelectorAll<HTMLButtonElement>(".filter-btn");
+  const filterBtns =
+    document.querySelectorAll<HTMLButtonElement>(".filter-btn");
   const projectCards = document.querySelectorAll<HTMLElement>(".project-card");
 
   filterBtns.forEach((btn) => {
@@ -429,14 +466,18 @@ const projects = [
   const modal = document.getElementById("portfolio-modal");
   const modalImg = document.getElementById("modal-img") as HTMLImageElement;
   const modalTitle = document.getElementById("modal-title");
+  const modalDescription = document.getElementById("modal-description");
   const modalClose = document.getElementById("modal-close");
-  const modalBackdrop = document.querySelector("#portfolio-modal .modal-backdrop");
+  const modalBackdrop = document.querySelector(
+    "#portfolio-modal .modal-backdrop",
+  );
 
-  function openModal(imageSrc: string, title: string, alt: string) {
+  function openModal(imageSrc: string, title: string, alt: string, description: string) {
     if (modal && modalImg && modalTitle) {
       modalImg.src = imageSrc;
       modalImg.alt = alt;
       modalTitle.textContent = title;
+      if (modalDescription) modalDescription.textContent = description;
       modal.classList.add("open");
       modal.setAttribute("aria-hidden", "false");
       document.body.style.overflow = "hidden";
@@ -456,7 +497,8 @@ const projects = [
       const img = card.getAttribute("data-image") || "";
       const title = card.getAttribute("data-title") || "";
       const alt = card.getAttribute("data-alt") || "";
-      openModal(img, title, alt);
+      const description = card.getAttribute("data-description") || "";
+      openModal(img, title, alt, description);
     });
 
     card.addEventListener("keydown", (e) => {
@@ -466,7 +508,8 @@ const projects = [
           const img = card.getAttribute("data-image") || "";
           const title = card.getAttribute("data-title") || "";
           const alt = card.getAttribute("data-alt") || "";
-          openModal(img, title, alt);
+          const description = card.getAttribute("data-description") || "";
+          openModal(img, title, alt, description);
         }
       }
     });
