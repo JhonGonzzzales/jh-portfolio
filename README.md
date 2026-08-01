@@ -7,9 +7,14 @@ Te doy la bienvenida a mi nuevo portafolio web personal. Este sitio fue diseñad
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
 
-[![Demo En Vivo](https://img.shields.io/badge/🌐_Ver_Sitio_Web-VERCEL-black?style=for-the-badge)](https://tu-sitio.vercel.app)
+<p align="left">
+  <a href="https://jh-portfolio-dwt.pages.dev/" target="_blank" rel="noopener noreferrer">
+    <img src="https://img.shields.io/badge/🌐_Ver_Sitio_Web-CLOUDFLARE_PAGES-F38020?style=for-the-badge&logo=cloudflare&logoColor=white" alt="Demo en vivo" data-canonical-src="https://img.shields.io/badge/🌐_Ver_Sitio_Web-CLOUDFLARE_PAGES-F38020?style=for-the-badge&logo=cloudflare&logoColor=white" style="max-width: 100%; pointer-events: none;" />
+  </a>
+</p>
 
-![Vista Previa del Portafolio](./public/preview.png)
+![Vista Previa del Portafolio(Modo Oscuro)](./public/readme/web-dark.webp)
+![Vista Previa del Portafolio(Modo Claro)](./public/readme/web-light.webp)
 
 ---
 

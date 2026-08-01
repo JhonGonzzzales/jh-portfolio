@@ -2,7 +2,7 @@
 import TechCarousel from "./TechCarousel.astro";
 ---
 
-<!-- ENVOLVEDOR PRINCIPAL (Envuelve a ambos) -->
+<!-- ENVOLVEDOR PRINCIPAL -->
 <div class="hero-profile-container">
   <div class="linkedin-card">
     <div class="linkedin-banner"></div>
@@ -55,13 +55,13 @@ import TechCarousel from "./TechCarousel.astro";
   /* —— Contenedor Envolvente Principal —— */
   .hero-profile-container {
     width: 100%;
-    max-width: 480px; /* Asegura el mismo ancho que la card */
+    max-width: 480px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 16px; /* Espacio entre la card y el carrusel */
-    overflow: hidden; /* 👈 Bloquea el desborde horizontal por completo */
+    gap: 16px;
+    overflow: hidden;
   }
 
   .linkedin-card {

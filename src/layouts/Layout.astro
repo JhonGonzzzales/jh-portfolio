@@ -3,12 +3,14 @@ export interface Props {
   title?: string;
   description?: string;
   image?: string;
+  canonicalURL?: string;
 }
 
 const { 
   title = "Jh · Portfolio", 
   description = "Portafolio de Jhon Herbert, estudiante de Ingeniería de Sistemas y desarrollador Web & Mobile. Explora mis proyectos, experiencia y tecnologías.",
-  image = "https://jh-portfolio-dwt.pages.dev/h_logo.webp"
+  image = "https://jh-portfolio-dwt.pages.dev/logo.webp",
+  canonicalURL = "https://jh-portfolio-dwt.pages.dev/"
 } = Astro.props;
 
 import '../styles/global.css';
@@ -17,34 +19,49 @@ import '../styles/global.css';
 <!DOCTYPE html>
 <html lang="es">
   <head>
+
+    <!-- Meta Básicos y SEO -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content={description} />
-    <meta name="theme-color" content="#333333" />
     <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content="Jhon Herbert Gonzales Hurtado" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={canonicalURL} />
+    <meta name="theme-color" content="#333333" />
 
-    <!-- Open Graph / WhatsApp / Facebook / Telegram -->
+    <!-- Open Graph / Redes Sociales (WhatsApp, Facebook, Telegram, LinkedIn) -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://jh-portfolio-dwt.pages.dev/" />
+    <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={image} />
+    <meta property="og:locale" content="es_BO" />
 
-    <!-- Twitter -->
+    <!-- Twitter / X -->
     <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://jh-portfolio-dwt.pages.dev/" />
+    <meta property="twitter:url" content={canonicalURL} />
     <meta property="twitter:title" content={title} />
     <meta property="twitter:description" content={description} />
     <meta property="twitter:image" content={image} />
 
-    <!-- Fuentes y CSS -->
+    <!-- Favicon e Iconos del Navegador -->
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <link rel="apple-touch-icon" href="/logo.png" />
+
+    <!-- Preconexiones para Mejorar Rendimiento -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-    <link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
-    <link rel="icon" type="image/svg+xml" href="/h_logo.svg" />
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
 
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Iconos Externos (FontAwesome & Devicon) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+
+    <!-- Script Inline para Evitar Parpadeo de Tema (FOUC) -->
     <script is:inline>
       (function() {
         const saved = localStorage.getItem('theme');
