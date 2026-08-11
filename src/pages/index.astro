@@ -21,13 +21,21 @@ import Footer from '../components/Footer.astro';
 </Layout>
 
 <script>
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
+  const setupReveal = () => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { 
+      threshold: 0.05,
+      rootMargin: "0px 0px -50px 0px"
     });
-  }, { threshold: 0.1 });
 
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  };
+
+  document.addEventListener('DOMContentLoaded', setupReveal);
+  document.addEventListener('astro:page-load', setupReveal);
 </script>

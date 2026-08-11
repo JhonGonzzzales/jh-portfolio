@@ -5,6 +5,50 @@ const about = [
     highlight: false,
   },
 ];
+
+const bio = "Estudiante de Ingeniería de Sistemas y autodidacta, enfocado en tecnologías Mobile y Web. Cuento con experiencia práctica en el despliegue de aplicaciones, integración de servicios y trabajo bajo metodologías ágiles y tradicionales. Interesado en colaborar con equipos multidisciplinarios para crear soluciones digitales.";
+
+const skillCategories = [
+  {
+    title: "Lenguajes & Frameworks",
+    skills: [
+      { name: "Python", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" },
+      { name: "Flask", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/flask/flask-original.svg" },
+      { name: "Dart", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/dart/dart-original.svg" },
+      { name: "Flutter", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/flutter/flutter-original.svg" },
+      { name: "Astro", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/astro/astro-original.svg" },
+      { name: "JavaScript", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" },
+      { name: "Php", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/php/php-original.svg" },
+    ]
+  },
+  {
+    title: "Bases de Datos & Cloud",
+    skills: [
+      { name: "SQLite", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/sqlite/sqlite-original.svg" },
+      { name: "PostgreSQL", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg" },
+      { name: "Supabase", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/supabase/supabase-original.svg" },
+      { name: "Firebase", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/firebase/firebase-original.svg" },
+      { name: "Cloudflare", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cloudflare/cloudflare-original.svg" },
+    ]
+  },
+  {
+    title: "Herramientas & Despliegue",
+    skills: [
+      { name: "Notion", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/notion/notion-original.svg" },
+      { name: "Slack", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/slack/slack-original.svg" },
+      { name: "Google Workspace", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/google/google-original.svg" },
+      { name: "Git", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" },
+      { name: "GitHub", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" },
+      { name: "Vercel", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vercel/vercel-original.svg" },
+      { name: "Netlify", icon: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/netlify/netlify-original.svg" },
+    ]
+  }
+];
+
+const metadata = [
+  { label: "Metodologías", value: "Ágiles (Scrum) & Tradicionales" },
+  { label: "Idiomas", value: "Español (Nativo) · Inglés (Técnico)" }
+];
 ---
 
 <section id="sobre-mi" class="section about">
@@ -16,15 +60,50 @@ const about = [
     </div>
 
     <div class="about-grid">
-      {
-        about.map((item, i) => (
-          <article
-            class={`about-card reveal reveal-delay-${i + 1} ${item.highlight ? "highlight" : ""}`}
-          >
-            <p class="about-desc">{item.desc}</p>
-          </article>
-        ))
-      }
+      <article class="about-card bio-card reveal reveal-delay-1">
+        <div class="card-header">
+          <i class="fa-solid fa-user-gear card-icon"></i>
+          <h3 class="about-title">Perfil Profesional</h3>
+        </div>
+        
+        {about.map((item) => (
+          <p class="about-desc">{item.desc}</p>
+        ))}
+
+        <div class="meta-pills">
+          {metadata.map((item) => (
+            <div class="meta-item">
+              <span class="meta-label">{item.label}:</span>
+              <span class="meta-value">{item.value}</span>
+            </div>
+          ))}
+        </div>
+      </article>
+
+      <article class="about-card skills-card reveal reveal-delay-2">
+        <div class="card-header">
+          <i class="fa-solid fa-layer-group card-icon"></i>
+          <h3 class="about-title">Conocimientos & Habilidades</h3>
+        </div>
+
+        <div class="categories-list">
+          {skillCategories.map((cat) => (
+            <div class="category-block">
+              <h4 class="category-title">
+                <i class={`fa-solid`}></i> {cat.title}
+              </h4>
+              <div class="badges-grid">
+                {cat.skills.map((s) => (
+                  <span class="tech-badge">
+                    <img src={s.icon} alt={s.name} class="badge-icon" loading="lazy" />
+                    <span class="badge-name">{s.name}</span>
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </article>
     </div>
   </div>
 </section>
@@ -34,6 +113,7 @@ const about = [
     background: var(--surface);
     border-top: 1.5px solid var(--border);
     border-bottom: 1.5px solid var(--border);
+    padding: var(--space-xl, 4rem) 0;
   }
 
   .accent-text {
@@ -43,21 +123,27 @@ const about = [
   .about-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: var(--space-md);
-    max-width: 800px;
+    gap: var(--space-md, 2rem);
+    max-width: 1100px;
     margin: 0 auto;
+    align-items: stretch;
+  }
+
+  @media (min-width: 900px) {
+    .about-grid {
+      grid-template-columns: 1fr 1fr;
+    }
   }
 
   .about-card {
     background: var(--bg);
     border: 1.5px solid var(--border);
-    border-radius: var(--radius);
-    padding: var(--space-lg);
+    border-radius: var(--radius, 12px);
+    padding: var(--space-lg, 2rem);
     display: flex;
     flex-direction: column;
-    text-align: justify;
-    gap: var(--space-sm);
-    transition: all var(--transition-base);
+    gap: 1.25rem;
+    transition: all var(--transition-base, 0.3s ease);
     position: relative;
     overflow: hidden;
   }
@@ -72,48 +158,133 @@ const about = [
     background: var(--accent);
     transform: scaleX(0);
     transform-origin: left;
-    transition: transform var(--transition-base);
+    transition: transform var(--transition-base, 0.3s ease);
   }
 
   .about-card:hover {
-    transform: translateY(-6px);
+    transform: translateY(-4px);
     border-color: var(--accent);
-    box-shadow: 0 16px 48px rgba(51, 51, 51, 0.1);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
   }
 
   .about-card:hover::before {
     transform: scaleX(1);
   }
 
-  .about-card.highlight {
-    border-color: var(--accent-secondary);
-    background: linear-gradient(
-      135deg,
-      var(--bg) 0%,
-      rgba(101, 98, 245, 0.04) 100%
-    );
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.75rem;
   }
 
-  .about-card.highlight::before {
-    background: var(--accent-secondary);
-    transform: scaleX(1);
+  .card-icon {
+    font-size: 1.25rem;
+    color: var(--accent);
   }
 
   .about-title {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
+    font-weight: 600;
     color: var(--text);
+    margin: 0;
   }
 
   .about-desc {
     flex: 1;
-    font-size: 1.125rem;
+    font-size: 1rem;
     color: var(--text);
     line-height: 1.7;
+    margin: 0;
+    text-align: left;
+  }
+
+  .meta-pills {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    background: var(--surface);
+    padding: 1rem;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    margin-top: auto;
+  }
+
+  .meta-item {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  .meta-label {
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  .meta-value {
+    color: var(--text);
+  }
+
+  .categories-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .category-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text);
+    margin: 0 0 0.75rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .category-title i {
+    color: var(--accent);
+    font-size: 0.85rem;
+  }
+
+  .badges-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tech-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 0.35rem 0.75rem;
+    font-size: 0.85rem;
+    color: var(--text);
+    transition: all 0.2s ease;
+  }
+
+  .tech-badge:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    background: var(--bg);
+  }
+
+  .badge-icon {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
   }
 
   @media (max-width: 640px) {
     .about-card {
-      padding: var(--space-md);
+      padding: var(--space-md, 1.25rem);
+    }
+    
+    .about-desc {
       text-align: left;
     }
   }

@@ -3,6 +3,16 @@ const categories = ["Todos", "Websites", "Web Apps", "Mobile Apps"];
 
 const projects = [
   {
+    image: "/portfolio/posemprendeapp.webp",
+    alt: "Aplicación móvil POS ligero.",
+    category: "Mobile Apps",
+    title: "POS EMPRENDE APP",
+    description:
+      "Aplicación móvil POS (Punto de Venta) ligero para comercios locales. Desarrollado con Flutter, Material Design 3, Provider y almacenamiento local.",
+    demoUrl: "https://pos-emprende-app.vercel.app/",
+    githubUrl: "https://github.com/JhonGonzzzales/POSEMPRENDEAPP",
+  },
+  {
     image: "/portfolio/inventariomvc.webp",
     alt: "Aplicación web para manejo básico de inventario.",
     category: "Web Apps",
@@ -38,6 +48,15 @@ const projects = [
     description:
       "Aplicación móvil experimental para recolección de información geográfica.",
     demoUrl: "https://app-sig-alpha.vercel.app/",
+  },
+  {
+    image: "/portfolio/web-first-blog.webp",
+    alt: "Web para lectura de blogs",
+    category: "Websites",
+    title: "First Blog",
+    description: "Web con apartado de blogs para lectura.",
+    demoUrl: "https://first-blog-00.netlify.app/",
+    githubUrl: "https://github.com/JhonGonzzzales/first-blog",
   },
   {
     image: "/portfolio/gesemp.webp",
@@ -472,7 +491,12 @@ const projects = [
     "#portfolio-modal .modal-backdrop",
   );
 
-  function openModal(imageSrc: string, title: string, alt: string, description: string) {
+  function openModal(
+    imageSrc: string,
+    title: string,
+    alt: string,
+    description: string,
+  ) {
     if (modal && modalImg && modalTitle) {
       modalImg.src = imageSrc;
       modalImg.alt = alt;
