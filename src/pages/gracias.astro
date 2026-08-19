@@ -1,39 +1,41 @@
 ---
-import '../styles/global.css';
+import Layout from '../layouts/Layout.astro';
 ---
 
-<section class="section thanks-section">
-  <div class="container">
-    <div class="thanks-inner reveal">
-      <div class="thanks-icon">
-        <i class="far fa-check-circle" aria-hidden="true"></i>
-      </div>
+<Layout title="¡Gracias por tu mensaje!">
+  <section class="section thanks-section">
+    <div class="container">
+      <div class="thanks-inner">
+        <div class="thanks-icon">
+          <i class="far fa-check-circle" aria-hidden="true"></i>
+        </div>
 
-      <span class="label">¡Mensaje Recibido!</span>
-      <h1 class="heading-lg">¡Gracias por ponerte en contacto!</h1>
-      <p class="body-lg">
-        He recibido tu mensaje correctamente. Revisaré los detalles de tu proyecto y te responderé a la brevedad.
-      </p>
+        <span class="label">¡Mensaje Recibido!</span>
+        <h1 class="heading-lg">¡Gracias por ponerte en contacto!</h1>
+        <p class="body-lg">
+          He recibido tu mensaje correctamente. Revisaré los detalles de tu proyecto y te responderé a la brevedad.
+        </p>
 
-      <div class="thanks-actions">
-        <a href="/" class="btn btn-primary">
-          <i class="fas fa-arrow-left" aria-hidden="true"></i>
-          Volver al inicio
-        </a>
+        <div class="thanks-actions">
+          <a href="/" class="btn btn-primary">
+            <i class="fas fa-arrow-left" aria-hidden="true"></i>
+            Volver al inicio
+          </a>
 
-        <a
-          href="https://wa.me/59161196628?text=Hola%20Herbert,%20acabo%20de%20enviarte%20un%20correo%20desde%20la%20web"
-          class="btn btn-whatsapp"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <i class="fab fa-whatsapp" aria-hidden="true"></i>
-          ¿Es urgente? Escríbeme por WhatsApp
-        </a>
+          <a
+            href="https://wa.me/59161196628?text=Hola%20Herbert,%20acabo%20de%20enviarte%20un%20correo%20desde%20la%20web"
+            class="btn btn-whatsapp"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <i class="fab fa-whatsapp" aria-hidden="true"></i>
+            ¿Es urgente? Escríbeme por WhatsApp
+          </a>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+</Layout>
 
 <style>
   .thanks-section {
